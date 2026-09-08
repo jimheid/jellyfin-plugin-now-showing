@@ -36,6 +36,7 @@ jobs:
           zip -r ../Now-Showing-${GITHUB_REF_NAME}.zip .
           cd ..
           sha256sum Now-Showing-${GITHUB_REF_NAME}.zip > Now-Showing-${GITHUB_REF_NAME}.zip.sha256
+          md5sum Now-Showing-${GITHUB_REF_NAME}.zip > Now-Showing-${GITHUB_REF_NAME}.zip.md5
 
       - name: Upload workflow artifact
         uses: actions/upload-artifact@v4
@@ -44,6 +45,7 @@ jobs:
           path: |
             Now-Showing-${{ github.ref_name }}.zip
             Now-Showing-${{ github.ref_name }}.zip.sha256
+            Now-Showing-${{ github.ref_name }}.zip.md5
 
       - name: Create GitHub release
         if: startsWith(github.ref, 'refs/tags/')
@@ -52,4 +54,5 @@ jobs:
           files: |
             Now-Showing-${{ github.ref_name }}.zip
             Now-Showing-${{ github.ref_name }}.zip.sha256
+            Now-Showing-${{ github.ref_name }}.zip.md5
           generate_release_notes: true

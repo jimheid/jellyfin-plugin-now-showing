@@ -97,6 +97,14 @@ Jellyfin plugin package references generally need to match the Jellyfin server v
 
 ## Installation
 
+### Through Jellyfin's plugin catalog
+
+In Jellyfin, open **Dashboard > Plugins > Repositories**, add a repository named **Now Showing**, and use this manifest URL:
+
+`https://raw.githubusercontent.com/jimheid/jellyfin-plugin-now-showing/main/manifest.json`
+
+After saving the repository, return to the plugin catalog, find **Now Showing**, and install it there. Installing through the repository lets Jellyfin display the plugin owner/repository metadata and makes future updates easier to discover.
+
 ### From a GitHub Release
 
 1. Download the latest Now Showing release ZIP from the **Releases** section of this repository.
@@ -137,7 +145,9 @@ dotnet publish Jellyfin.Plugin.NowShowing/Jellyfin.Plugin.NowShowing.csproj -c R
 
 ## Release builds
 
-A GitHub Actions workflow is included. Pushing a version tag such as `v1.0.0` builds the plugin and creates a GitHub Release containing a ready-to-install ZIP and SHA-256 checksum.
+A GitHub Actions workflow is included. Pushing a version tag such as `v1.0.0` builds the plugin and creates a GitHub Release containing a ready-to-install ZIP plus SHA-256 and MD5 checksum files.
+
+The root-level `manifest.json` is the Jellyfin plugin-repository manifest. When publishing a new release, add its version, release ZIP URL, MD5 checksum, target Jellyfin ABI, and timestamp to the top of the manifest's `versions` list.
 
 ## Development note
 
