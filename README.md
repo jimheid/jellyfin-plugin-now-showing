@@ -1,100 +1,123 @@
 # Now Showing for Jellyfin
 
-**Now Showing** turns selected Jellyfin libraries into a customizable static catalog website that you can upload to any ordinary web host. This source tree is currently at **v1.0.8**.
+**Now Showing** is a Jellyfin server plugin that turns selected libraries into a customizable, shareable static catalog website.
 
-The generated site is a single self-contained `index.html` file. It never connects back to Jellyfin after publication and contains no Jellyfin server URL, API token, username, or password.
+Choose the libraries you want to publish, give them guest-friendly names, customize the appearance, and generate a single self-contained `index.html` file. The finished catalog can be uploaded to almost any web host. Public catalogs can also be shared directly as a file—no web server is required.
 
-## 1.0 features
+Now Showing does **not** stream media or provide access to your Jellyfin server. The generated catalog is a read-only listing of the metadata you choose to publish.
+
+## Highlights
+
+- Generates one self-contained `index.html` file.
+- Select any combination of the libraries that actually exist on your Jellyfin server.
+- Give each library a separate public-facing name without renaming it in Jellyfin.
+- Browse all published libraries or jump directly to an individual library.
+- Search titles and filter by genre.
+- Sort by title, genre, newest year, or oldest year.
+- Choose **Cards** or a responsive, sortable **Columnar** layout.
+- Choose **Serif** or **Sans Serif** text.
+- Start with Default, Dark, Retro, or Custom color presets, then customize colors individually.
+- Use the built-in generic banner, upload your own JPG/PNG/WebP banner, or use no banner.
+- Add an optional site name, tagline, footer, and “Catalog updated” timestamp.
+- Generate a public catalog or an optionally password-protected one.
+- Preview changes from inside the Jellyfin dashboard before generating the site.
+- Movie libraries list movies; TV libraries list series rather than every episode.
+- Large libraries are retrieved in pages rather than assuming a fixed maximum size.
+
+## How it works
+
+1. Install Now Showing on your Jellyfin server.
+2. Open **Dashboard > Now Showing**.
+3. Select the libraries you want to publish and optionally give them public names.
+4. Customize the banner, colors, typography, display style, search/filter options, and access settings.
+5. Preview the site.
+6. Click **Generate Website**.
+7. Upload the resulting `index.html` to your web host—or share a public catalog directly as a file.
+
+The generated site is static. After it has been generated, it does not connect back to Jellyfin and contains no Jellyfin server URL, API token, username, or Jellyfin password.
+
+## Sharing without a web server
+
+A public catalog is just an HTML file, so you can also send it to someone directly. The recipient can save `index.html` and open it in a modern browser. Some email services block raw HTML attachments; putting the file in a ZIP usually avoids that problem.
+
+Password-protected catalogs are intended to be served over **HTTPS**, because their browser-side decryption uses the Web Crypto API.
+
+## Appearance
 
 ### Branding
 
-- Blank site name by default.
-- Blank tagline by default.
-- Generic built-in media banner with no branding or text.
-- Upload a custom JPG, PNG, or WebP banner. **1600 × 400 pixels (4:1) is recommended.**
-- Or generate the site with no banner.
-- Custom banners are resized in the dashboard before being stored in plugin configuration and embedded into the generated page.
+- Site name and tagline are blank by default.
+- Built-in unbranded media banner.
+- Optional custom JPG, PNG, or WebP banner.
+- **1600 × 400 pixels (4:1)** is recommended for custom banners.
+- Optional no-banner mode.
+- Custom banners are embedded into the generated HTML, so the finished website remains a single file.
 
-### Appearance
+### Themes and typography
 
-- Default, Dark, Retro, and Custom theme modes.
-- Color picker + editable hex value for:
-  - page background
-  - panel background
-  - primary text
-  - secondary text
-  - accent color
-  - button background
-  - button text
-- Reset Colors button.
-- Serif or San Serif text styles, reflected in Live Preview and the generated site.
-- Cards or responsive, sortable Columnar display styles.
-- Optional “Catalog updated” timestamp and custom footer text are configured in Appearance.
-- The four configuration steps are stacked vertically in order, leaving more room for a larger Live Preview beside them.
-- Live Preview stays visible beside the controls while scrolling on desktop-sized layouts, with clearance for Jellyfin’s fixed top bar.
-- Responsive desktop, tablet, and phone layouts.
+Now Showing includes Default, Dark, Retro, and Custom theme modes. You can independently adjust:
 
-### Content
+- Page background
+- Panel background
+- Primary text
+- Secondary text
+- Accent color
+- Button background
+- Button text
 
-- Select which Jellyfin libraries to publish.
-- Give every library its own public-facing name without renaming it in Jellyfin.
-- Choose the initial view: All libraries or one selected library.
-- Default sort by title, genre, newest year, or oldest year.
-- Optional release year and genre display.
-- Optional title search and genre filter.
-- Movie libraries list movies; TV libraries list series rather than episodes.
-- Large libraries are fetched in pages rather than assuming a fixed maximum size.
+Text can use **Serif** or **Sans Serif** styling. Catalog content can use the **Cards** layout or a responsive **Columnar** layout.
 
-### Access
+## Password protection
 
-The generated catalog can be either:
+A generated catalog can be either:
 
 - **Public** — no password required.
 - **Password protected** — catalog metadata is encrypted before export.
 
-Password-protected catalogs use AES-256-GCM authenticated encryption with a PBKDF2-HMAC-SHA256 password-derived key. The publication password is used only while generating the site and is **never saved** in Now Showing settings.
+Password-protected catalogs use AES-256-GCM authenticated encryption with a PBKDF2-HMAC-SHA256 password-derived key. The publication password is used while generating the site and is **not saved** in Now Showing settings.
 
-A password-protected static file can still be downloaded and subjected to offline password guessing, so use a reasonably strong password. For highly sensitive material, use authentication at the web-server or hosting layer as well.
+Because the encrypted HTML file can be downloaded, an attacker can attempt offline password guessing. Use a reasonably strong password. If the catalog contains genuinely sensitive information, protect it at the web-server/hosting layer as well.
 
-Password-protected catalogs should be hosted over **HTTPS**, because browser Web Crypto is generally available only in secure contexts.
+## Privacy and network behavior
 
-### Publication
+Now Showing does not include telemetry, advertising, analytics, or calls to third-party services. The plugin reads metadata from the Jellyfin server on which it is installed and generates a static catalog from that metadata.
 
-Version 1.0 intentionally does **not** include FTP/SFTP publishing.
+The generated site does not contact Jellyfin or any external service after publication.
 
-Workflow:
+## Compatibility
 
-1. Configure the site in Jellyfin.
-2. Click **Preview Website** if desired. The preview uses the currently selected libraries and public names. If password protection is selected, the preview reproduces the password gate and validates the password you entered without requiring HTTPS. The downloaded protected site uses the real encrypted payload.
-3. Click **Generate Website**. Password-protected previews and exports require an 8+ character password and matching confirmation. The downloaded protected site should be hosted over HTTPS.
-4. Upload the resulting `index.html` file to your web host.
-
-## Coexists with Simple Catalog
-
-Now Showing has its own:
-
-- plugin name
-- assembly/DLL name
-- plugin GUID
-- configuration file
-- dashboard page
-
-It can therefore be installed alongside **Simple Catalog** without replacing or changing Simple Catalog.
-
-## Jellyfin compatibility
-
-This source targets:
+The first public release targets:
 
 - Jellyfin **10.11.11**
 - .NET **9.0**
 
-Jellyfin plugin package references should match the server version. If you target another Jellyfin release, change both `Jellyfin.Controller` and `Jellyfin.Model` versions in:
+Jellyfin plugin package references generally need to match the Jellyfin server version. If you are building for another Jellyfin release, update both `Jellyfin.Controller` and `Jellyfin.Model` in:
 
 `Jellyfin.Plugin.NowShowing/Jellyfin.Plugin.NowShowing.csproj`
 
-## Build
+## Installation
 
-Install the .NET 9 SDK, then run:
+### From a GitHub Release
+
+1. Download the latest Now Showing release ZIP from the **Releases** section of this repository.
+2. Stop Jellyfin.
+3. Create a folder named `Now Showing` inside Jellyfin's plugins directory.
+4. Extract `Jellyfin.Plugin.NowShowing.dll` into that folder.
+5. Start Jellyfin.
+6. Open **Dashboard > Now Showing**.
+
+Common plugin locations include:
+
+- macOS: `~/Library/Application Support/Jellyfin/plugins/`
+- Linux packages: `/var/lib/jellyfin/plugins/`
+- Windows direct install: `%LOCALAPPDATA%\\jellyfin\\plugins\\`
+- Windows tray install: `%PROGRAMDATA%\\Jellyfin\\Server\\plugins\\`
+
+Your installation may use a different data directory.
+
+## Building from source
+
+Install the .NET 9 SDK, then from the repository folder run:
 
 ```bash
 chmod +x build.sh
@@ -112,32 +135,34 @@ dotnet restore Jellyfin.Plugin.NowShowing/Jellyfin.Plugin.NowShowing.csproj
 dotnet publish Jellyfin.Plugin.NowShowing/Jellyfin.Plugin.NowShowing.csproj -c Release --no-self-contained -o publish
 ```
 
-## Manual installation
+## Release builds
 
-1. Stop Jellyfin.
-2. Create a plugin folder named `Now Showing` in Jellyfin's plugins directory.
-3. Copy `Jellyfin.Plugin.NowShowing.dll` into that folder.
-4. Start Jellyfin.
-5. Open Dashboard > **Now Showing**.
+A GitHub Actions workflow is included. Pushing a version tag such as `v1.0.0` builds the plugin and creates a GitHub Release containing a ready-to-install ZIP and SHA-256 checksum.
 
-Typical plugin locations include:
+## Development note
 
-- Linux packages: `/var/lib/jellyfin/plugins/`
-- Windows direct install: `%LOCALAPPDATA%\\jellyfin\\plugins\\`
-- Windows tray install: `%PROGRAMDATA%\\Jellyfin\\Server\\plugins\\`
+Now Showing was developed with extensive AI assistance. Feature design, requirements, iterative testing, and acceptance decisions were performed by the project maintainer against a working Jellyfin installation. AI was used to generate and revise substantial portions of the code and documentation.
 
-## Default banner
+The source is public so users can inspect it, build it themselves, report problems, and contribute improvements. Bug reports and code review are welcome.
 
-The source artwork is in:
+## Reporting bugs
 
-`Jellyfin.Plugin.NowShowing/Assets/default-banner.png`
+Please use the repository's **Issues** tab. When possible, include:
 
-The dashboard embeds the banner into the generated HTML so the finished website remains a single file.
+- Jellyfin server version
+- Now Showing version
+- Browser and operating system
+- Steps to reproduce the problem
+- Relevant Jellyfin log messages or browser-console errors
 
-## GitHub releases
+Please do not post passwords, API keys, server credentials, or other secrets in an issue.
 
-A GitHub Actions workflow is included. Pushing a tag such as `v1.0.8` builds the plugin and attaches a ready-to-install ZIP to a GitHub Release.
+## Project scope
+
+Version 1.0 intentionally does **not** upload the generated site for you. FTP/SFTP publishing and other automated deployment methods may be considered later, but the 1.0 workflow is deliberately simple: **configure, preview, generate, upload/share**.
+
+Now Showing is an independent community plugin and is not affiliated with or endorsed by the Jellyfin project.
 
 ## License
 
-MIT. See `LICENSE`.
+MIT. See [LICENSE](LICENSE).

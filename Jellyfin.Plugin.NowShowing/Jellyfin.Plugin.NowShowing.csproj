@@ -3,7 +3,7 @@
     <TargetFramework>net9.0</TargetFramework>
     <RootNamespace>Jellyfin.Plugin.NowShowing</RootNamespace>
     <AssemblyName>Jellyfin.Plugin.NowShowing</AssemblyName>
-    <Version>1.0.8.0</Version>
+    <Version>1.0.0.0</Version>
     <Authors>Now Showing contributors</Authors>
     <Description>Generate a customizable, optionally password-protected static website from Jellyfin libraries.</Description>
     <Nullable>enable</Nullable>
