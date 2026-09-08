@@ -97,13 +97,21 @@ Jellyfin plugin package references generally need to match the Jellyfin server v
 
 ## Installation
 
-### Through Jellyfin's plugin catalog
+### Recommended: install through Jellyfin
 
-In Jellyfin, open **Dashboard > Plugins > Repositories**, add a repository named **Now Showing**, and use this manifest URL:
+1. In Jellyfin, open **Dashboard > Plugins**.
+2. Click **Manage Repositories**.
+3. On the Repositories page, click **New Repository**.
+4. Enter:
+   - **Repository Name:** `Now Showing`
+   - **Repository URL:** `https://raw.githubusercontent.com/jimheid/jellyfin-plugin-now-showing/main/manifest.json`
+5. Click **Add**.
+6. Return to **Dashboard > Plugins > Catalog**.
+7. Find **Now Showing** and install it.
+8. Restart Jellyfin if prompted.
+9. After installation, open **Dashboard > Plugins > My Plugins > Now Showing > Settings**.
 
-`https://raw.githubusercontent.com/jimheid/jellyfin-plugin-now-showing/main/manifest.json`
-
-After saving the repository, return to the plugin catalog, find **Now Showing**, and install it there. Installing through the repository lets Jellyfin display the plugin owner/repository metadata and makes future updates easier to discover.
+Installing through the repository lets Jellyfin display the plugin owner/repository metadata and makes future updates easier to discover.
 
 ### From a GitHub Release
 
