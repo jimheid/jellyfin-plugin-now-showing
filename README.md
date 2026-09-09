@@ -1,10 +1,12 @@
-# Now Showing for Jellyfin
+# Now Showing, for Jellyfin 10.11.11
 
 **Now Showing** is a Jellyfin server plugin that turns selected libraries into a customizable, shareable static catalog website.
 
 Choose the libraries you want to publish, give them guest-friendly names, customize the appearance, and generate a single self-contained `index.html` file. The finished catalog can be uploaded to almost any web host. Public catalogs can also be shared directly as a file—no web server is required.
 
 Now Showing does **not** stream media or provide access to your Jellyfin server. The generated catalog is a read-only listing of the metadata you choose to publish.
+
+**IMPORTANT:** Now Showing was developed for and tested in Jellyfin 10.11.11. Don't install this version on a Jellyfin 12 server.
 
 ## Highlights
 
@@ -108,8 +110,8 @@ Jellyfin plugin package references generally need to match the Jellyfin server v
 5. Click **Add**.
 6. Return to **Dashboard > Plugins > Catalog**.
 7. Find **Now Showing** and install it.
-8. Restart Jellyfin if prompted.
-9. After installation, open **Dashboard > Plugins > My Plugins > Now Showing > Settings**.
+8. Restart Jellyfin when prompted.
+9. After installation, open **Dashboard > Plugins**, locate the plug-in, then click **Settings**. (Alternatively, you can open **Dashboard > Now Showing** in the Plugins area.)
 
 Installing through the repository lets Jellyfin display the plugin owner/repository metadata and makes future updates easier to discover.
 
