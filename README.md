@@ -8,6 +8,16 @@ Now Showing does **not** stream media or provide access to your Jellyfin server.
 
 **IMPORTANT:** Now Showing was developed for and tested in Jellyfin 10.11.11. Don't install this version on a Jellyfin 12 server.
 
+## Screenshots
+
+### Configure and preview your catalog
+
+![Now Showing plugin configuration and live preview](docs/images/now-showing-plugin-settings.png)
+
+### Example generated catalog
+
+![Generated Now Showing catalog in columnar view, with titles blurred for privacy](docs/images/now-showing-generated-catalog-blurred.png)
+
 ## Highlights
 
 - Generates one self-contained `index.html` file.
